@@ -1,0 +1,131 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container mt-4">
+    <!-- Header -->
+    <div class="text-center mb-5">
+        <h1>AI Medical Diagnosis System</h1>
+        <p class="lead">Advanced disease prediction using machine learning</p>
+    </div>
+
+    <!-- Disease Cards -->
+    <div class="row">
+        <!-- Diabetes Card -->
+        <div class="col-md-4 mb-4">
+            <div class="card h-100">
+                <div class="card-body">
+                    <h5 class="card-title">Diabetes Prediction</h5>
+                    <p class="card-text">Analyze glucose levels and other factors to predict diabetes risk.</p>
+                    <ul class="list-unstyled">
+                        <li>✓ Blood sugar analysis</li>
+                        <li>✓ BMI consideration</li>
+                        <li>✓ Family history factor</li>
+                    </ul>
+                    <div class="text-center mt-auto">
+                        <a href="{{ url_for('diagnose', type='diabetes') }}" class="btn btn-primary">Check Now</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Heart Disease Card -->
+        <div class="col-md-4 mb-4">
+            <div class="card h-100">
+                <div class="card-body">
+                    <h5 class="card-title">Heart Disease Detection</h5>
+                    <p class="card-text">Evaluate heart health using multiple clinical parameters.</p>
+                    <ul class="list-unstyled">
+                        <li>✓ ECG analysis</li>
+                        <li>✓ Blood pressure monitoring</li>
+                        <li>✓ Cholesterol evaluation</li>
+                    </ul>
+                    <div class="text-center mt-auto">
+                        <a href="{{ url_for('diagnose', type='heart') }}" class="btn btn-primary">Check Now</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Parkinson's Card -->
+        <div class="col-md-4 mb-4">
+            <div class="card h-100">
+                <div class="card-body">
+                    <h5 class="card-title">Parkinson's Disease</h5>
+                    <p class="card-text">Early detection of Parkinson's disease through analysis.</p>
+                    <ul class="list-unstyled">
+                        <li>✓ Voice pattern analysis</li>
+                        <li>✓ Tremor detection</li>
+                        <li>✓ Movement assessment</li>
+                    </ul>
+                    <div class="text-center mt-auto">
+                        <a href="{{ url_for('diagnose', type='parkinsons') }}" class="btn btn-primary">Check Now</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Lung Cancer Card -->
+        <div class="col-md-4 mb-4">
+            <div class="card h-100">
+                <div class="card-body">
+                    <h5 class="card-title">Lung Cancer Risk</h5>
+                    <p class="card-text">Assess lung cancer risk based on symptoms and factors.</p>
+                    <ul class="list-unstyled">
+                        <li>✓ Symptom analysis</li>
+                        <li>✓ Risk factor evaluation</li>
+                        <li>✓ Lifestyle assessment</li>
+                    </ul>
+                    <div class="text-center mt-auto">
+                        <a href="{{ url_for('diagnose', type='lung') }}" class="btn btn-primary">Check Now</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Thyroid Card -->
+        <div class="col-md-4 mb-4">
+            <div class="card h-100">
+                <div class="card-body">
+                    <h5 class="card-title">Thyroid Disease</h5>
+                    <p class="card-text">Evaluate thyroid function through hormone analysis.</p>
+                    <ul class="list-unstyled">
+                        <li>✓ Hormone level analysis</li>
+                        <li>✓ Symptom evaluation</li>
+                        <li>✓ Risk assessment</li>
+                    </ul>
+                    <div class="text-center mt-auto">
+                        <a href="{{ url_for('diagnose', type='thyroid') }}" class="btn btn-primary">Check Now</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- How it Works Section -->
+    <div class="row mt-5">
+        <div class="col-12">
+            <h2 class="text-center mb-4">How It Works</h2>
+            <div class="row text-center">
+                <div class="col-md-4">
+                    <div class="p-3">
+                        <h4>1. Enter Details</h4>
+                        <p>Provide your medical parameters</p>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="p-3">
+                        <h4>2. AI Analysis</h4>
+                        <p>Our models analyze your data</p>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="p-3">
+                        <h4>3. Get Results</h4>
+                        <p>Receive detailed analysis</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

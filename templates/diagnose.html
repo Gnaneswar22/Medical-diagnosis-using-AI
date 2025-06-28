@@ -1,0 +1,449 @@
+{% extends "base.html" %}
+{% block content %}
+
+<div class="container mt-4">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card shadow">
+                <div class="card-header bg-primary text-white">
+                    <h2 class="text-center mb-0">Medical Diagnosis</h2>
+                </div>
+                <div class="card-body">
+                    <!-- Disease Selection -->
+                    <div class="mb-4">
+                        <label class="form-label">Select Disease Type</label>
+                        <select class="form-select form-select-lg" id="diseaseSelect">
+                            <option value="">Choose a disease to diagnose...</option>
+                            <option value="diabetes" {% if disease_type == 'diabetes' %}selected{% endif %}>Diabetes</option>
+                            <option value="heart" {% if disease_type == 'heart' %}selected{% endif %}>Heart Disease</option>
+                            <option value="parkinsons" {% if disease_type == 'parkinsons' %}selected{% endif %}>Parkinson's Disease</option>
+                            <option value="lung" {% if disease_type == 'lung' %}selected{% endif %}>Lung Cancer</option>
+                            <option value="thyroid" {% if disease_type == 'thyroid' %}selected{% endif %}>Thyroid Disease</option>
+                        </select>
+                    </div>
+
+                    <!-- Disease Forms -->
+                    <!-- Diabetes Form -->
+                    <form id="diabetesForm" action="{{ url_for('predict') }}" method="POST" class="disease-form" style="display: none;">
+                        <input type="hidden" name="disease_type" value="diabetes">
+                        <div class="row g-3">
+                            <div class="col-md-6">
+                                <label class="form-label">Pregnancies</label>
+                                <input type="number" class="form-control" name="pregnancies" required min="0" max="20">
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label">Glucose Level</label>
+                                <input type="number" class="form-control" name="glucose" required min="0" max="200">
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label">Blood Pressure</label>
+                                <input type="number" class="form-control" name="blood_pressure" required min="0" max="122">
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label">Skin Thickness</label>
+                                <input type="number" class="form-control" name="skin_thickness" required min="0" max="100">
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label">Insulin</label>
+                                <input type="number" class="form-control" name="insulin" required min="0" max="846">
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label">BMI</label>
+                                <input type="number" step="0.1" class="form-control" name="bmi" required min="0" max="67.1">
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label">Diabetes Pedigree Function</label>
+                                <input type="number" step="0.001" class="form-control" name="diabetes_pedigree" required min="0.078" max="2.42">
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label">Age</label>
+                                <input type="number" class="form-control" name="age" required min="21" max="81">
+                            </div>
+                        </div>
+                        <div class="text-center mt-4">
+                            <button type="submit" class="btn btn-primary">Predict</button>
+                        </div>
+                    </form>
+
+                    <!-- Heart Disease Form -->
+                    <form id="heartForm" action="{{ url_for('predict') }}" method="POST" class="disease-form" style="display: none;">
+                        <input type="hidden" name="disease_type" value="heart">
+                        <div class="row g-3">
+                            <div class="col-md-6">
+                                <label class="form-label">Age</label>
+                                <input type="number" class="form-control" name="age" required min="29" max="77">
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label">Sex</label>
+                                <select class="form-select" name="sex" required>
+                                    <option value="1">Male</option>
+                                    <option value="0">Female</option>
+                                </select>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label">Chest Pain Type</label>
+                                <select class="form-select" name="cp" required>
+                                    <option value="0">Typical Angina</option>
+                                    <option value="1">Atypical Angina</option>
+                                    <option value="2">Non-anginal Pain</option>
+                                    <option value="3">Asymptomatic</option>
+                                </select>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label">Resting Blood Pressure</label>
+                                <input type="number" class="form-control" name="trestbps" required min="94" max="200">
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label">Cholesterol</label>
+                                <input type="number" class="form-control" name="chol" required min="126" max="564">
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label">Fasting Blood Sugar > 120 mg/dl</label>
+                                <select class="form-select" name="fbs" required>
+                                    <option value="1">Yes</option>
+                                    <option value="0">No</option>
+                                </select>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label">Resting ECG Results</label>
+                                <select class="form-select" name="restecg" required>
+                                    <option value="0">Normal</option>
+                                    <option value="1">ST-T Wave Abnormality</option>
+                                    <option value="2">Left Ventricular Hypertrophy</option>
+                                </select>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label">Maximum Heart Rate</label>
+                                <input type="number" class="form-control" name="thalach" required min="71" max="202">
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label">Exercise Induced Angina</label>
+                                <select class="form-select" name="exang" required>
+                                    <option value="1">Yes</option>
+                                    <option value="0">No</option>
+                                </select>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label">ST Depression</label>
+                                <input type="number" step="0.1" class="form-control" name="oldpeak" required min="0" max="6.2">
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label">Slope of Peak Exercise ST Segment</label>
+                                <select class="form-select" name="slope" required>
+                                    <option value="0">Upsloping</option>
+                                    <option value="1">Flat</option>
+                                    <option value="2">Downsloping</option>
+                                </select>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label">Number of Major Vessels</label>
+                                <input type="number" class="form-control" name="ca" required min="0" max="4">
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label">Thalassemia</label>
+                                <select class="form-select" name="thal" required>
+                                    <option value="1">Normal</option>
+                                    <option value="2">Fixed Defect</option>
+                                    <option value="3">Reversible Defect</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="text-center mt-4">
+                            <button type="submit" class="btn btn-primary">Predict</button>
+                        </div>
+                    </form>
+
+                    <!-- Parkinson's Disease Form -->
+                    <form id="parkinsonsForm" action="{{ url_for('predict') }}" method="POST" class="disease-form" style="display: none;">
+                        <input type="hidden" name="disease_type" value="parkinsons">
+                        <div class="row g-3">
+                            <div class="col-md-6">
+                                <label class="form-label">MDVP:Fo(Hz)</label>
+                                <input type="number" step="0.001" class="form-control" name="fo" required>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label">MDVP:Fhi(Hz)</label>
+                                <input type="number" step="0.001" class="form-control" name="fhi" required>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label">MDVP:Flo(Hz)</label>
+                                <input type="number" step="0.001" class="form-control" name="flo" required>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label">MDVP:Jitter(%)</label>
+                                <input type="number" step="0.001" class="form-control" name="Jitter_percent" required>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label">MDVP:Jitter(Abs)</label>
+                                <input type="number" step="0.000001" class="form-control" name="Jitter_Abs" required>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label">MDVP:RAP</label>
+                                <input type="number" step="0.001" class="form-control" name="RAP" required>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label">MDVP:PPQ</label>
+                                <input type="number" step="0.001" class="form-control" name="PPQ" required>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label">Jitter:DDP</label>
+                                <input type="number" step="0.001" class="form-control" name="DDP" required>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label">MDVP:Shimmer</label>
+                                <input type="number" step="0.001" class="form-control" name="Shimmer" required>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label">MDVP:Shimmer(dB)</label>
+                                <input type="number" step="0.001" class="form-control" name="Shimmer_dB" required>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label">Shimmer:APQ3</label>
+                                <input type="number" step="0.001" class="form-control" name="APQ3" required>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label">Shimmer:APQ5</label>
+                                <input type="number" step="0.001" class="form-control" name="APQ5" required>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label">MDVP:APQ</label>
+                                <input type="number" step="0.001" class="form-control" name="APQ" required>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label">Shimmer:DDA</label>
+                                <input type="number" step="0.001" class="form-control" name="DDA" required>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label">NHR</label>
+                                <input type="number" step="0.001" class="form-control" name="NHR" required>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label">HNR</label>
+                                <input type="number" step="0.001" class="form-control" name="HNR" required>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label">RPDE</label>
+                                <input type="number" step="0.001" class="form-control" name="RPDE" required>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label">DFA</label>
+                                <input type="number" step="0.001" class="form-control" name="DFA" required>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label">spread1</label>
+                                <input type="number" step="0.001" class="form-control" name="spread1" required>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label">spread2</label>
+                                <input type="number" step="0.001" class="form-control" name="spread2" required>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label">D2</label>
+                                <input type="number" step="0.001" class="form-control" name="D2" required>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label">PPE</label>
+                                <input type="number" step="0.001" class="form-control" name="PPE" required>
+                            </div>
+                        </div>
+                        <div class="text-center mt-4">
+                            <button type="submit" class="btn btn-primary">Predict</button>
+                        </div>
+                    </form>
+
+                    <!-- Lung Cancer Form -->
+                    <form id="lungForm" action="{{ url_for('predict') }}" method="POST" class="disease-form" style="display: none;">
+                        <input type="hidden" name="disease_type" value="lung">
+                        <div class="row g-3">
+                            <div class="col-md-6">
+                                <label class="form-label">Gender</label>
+                                <select class="form-select" name="GENDER" required>
+                                    <option value="1">Male</option>
+                                    <option value="0">Female</option>
+                                </select>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label">Age</label>
+                                <input type="number" class="form-control" name="AGE" required min="20" max="100">
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label">Smoking</label>
+                                <select class="form-select" name="SMOKING" required>
+                                    <option value="1">Yes</option>
+                                    <option value="0">No</option>
+                                </select>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label">Yellow Fingers</label>
+                                <select class="form-select" name="YELLOW_FINGERS" required>
+                                    <option value="1">Yes</option>
+                                    <option value="0">No</option>
+                                </select>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label">Anxiety</label>
+                                <select class="form-select" name="ANXIETY" required>
+                                    <option value="1">Yes</option>
+                                    <option value="0">No</option>
+                                </select>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label">Peer Pressure</label>
+                                <select class="form-select" name="PEER_PRESSURE" required>
+                                    <option value="1">Yes</option>
+                                    <option value="0">No</option>
+                                </select>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label">Chronic Disease</label>
+                                <select class="form-select" name="CHRONIC_DISEASE" required>
+                                    <option value="1">Yes</option>
+                                    <option value="0">No</option>
+                                </select>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label">Fatigue</label>
+                                <select class="form-select" name="FATIGUE" required>
+                                    <option value="1">Yes</option>
+                                    <option value="0">No</option>
+                                </select>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label">Allergy</label>
+                                <select class="form-select" name="ALLERGY" required>
+                                    <option value="1">Yes</option>
+                                    <option value="0">No</option>
+                                </select>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label">Wheezing</label>
+                                <select class="form-select" name="WHEEZING" required>
+                                    <option value="1">Yes</option>
+                                    <option value="0">No</option>
+                                </select>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label">Alcohol Consuming</label>
+                                <select class="form-select" name="ALCOHOL_CONSUMING" required>
+                                    <option value="1">Yes</option>
+                                    <option value="0">No</option>
+                                </select>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label">Coughing</label>
+                                <select class="form-select" name="COUGHING" required>
+                                    <option value="1">Yes</option>
+                                    <option value="0">No</option>
+                                </select>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label">Shortness of Breath</label>
+                                <select class="form-select" name="SHORTNESS_OF_BREATH" required>
+                                    <option value="1">Yes</option>
+                                    <option value="0">No</option>
+                                </select>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label">Swallowing Difficulty</label>
+                                <select class="form-select" name="SWALLOWING_DIFFICULTY" required>
+                                    <option value="1">Yes</option>
+                                    <option value="0">No</option>
+                                </select>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label">Chest Pain</label>
+                                <select class="form-select" name="CHEST_PAIN" required>
+                                    <option value="1">Yes</option>
+                                    <option value="0">No</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="text-center mt-4">
+                            <button type="submit" class="btn btn-primary">Predict</button>
+                        </div>
+                    </form>
+
+                    <!-- Thyroid Form -->
+                    <form id="thyroidForm" action="{{ url_for('predict') }}" method="POST" class="disease-form" style="display: none;">
+                        <input type="hidden" name="disease_type" value="thyroid">
+                        <div class="row g-3">
+                            <div class="col-md-6">
+                                <label class="form-label">Age</label>
+                                <input type="number" class="form-control" name="age" required min="0" max="100">
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label">Sex</label>
+                                <select class="form-select" name="sex" required>
+                                    <option value="1">Male</option>
+                                    <option value="0">Female</option>
+                                </select>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label">On Thyroxine</label>
+                                <select class="form-select" name="on_thyroxine" required>
+                                    <option value="1">Yes</option>
+                                    <option value="0">No</option>
+                                </select>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label">TSH Level</label>
+                                <input type="number" step="0.01" class="form-control" name="tsh" required>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label">T3 Measured</label>
+                                <select class="form-select" name="t3_measured" required>
+                                    <option value="1">Yes</option>
+                                    <option value="0">No</option>
+                                </select>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label">T3 Value</label>
+                                <input type="number" step="0.01" class="form-control" name="t3" required>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label">Total T4</label>
+                                <input type="number" step="0.01" class="form-control" name="tt4" required>
+                            </div>
+                        </div>
+                        <div class="text-center mt-4">
+                            <button type="submit" class="btn btn-primary">Predict</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+document.getElementById('diseaseSelect').addEventListener('change', function() {
+    // Hide all forms
+    document.querySelectorAll('.disease-form').forEach(form => {
+        form.style.display = 'none';
+    });
+    
+    // Show selected form
+    const selectedValue = this.value;
+    if (selectedValue) {
+        const selectedForm = document.getElementById(`${selectedValue}Form`);
+        if (selectedForm) {
+            selectedForm.style.display = 'block';
+        }
+    }
+});
+
+// Show initial form if disease_type is set
+window.onload = function() {
+    const urlParams = new URLSearchParams(window.location.search);
+    const diseaseType = urlParams.get('type');
+    if (diseaseType) {
+        document.getElementById('diseaseSelect').value = diseaseType;
+        const selectedForm = document.getElementById(`${diseaseType}Form`);
+        if (selectedForm) {
+            selectedForm.style.display = 'block';
+        }
+    }
+};
+</script>
+
+{% endblock %}

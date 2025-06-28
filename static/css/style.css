@@ -1,0 +1,38 @@
+.prediction-form label {
+    font-weight: 500;
+    margin-bottom: 5px;
+}
+
+.prediction-form input[type="number"] {
+    width: 100%;
+    padding: 8px;
+    margin-bottom: 15px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+}
+
+.prediction-form .btn-primary {
+    width: 100%;
+    padding: 10px;
+    margin-top: 20px;
+}
+
+.result {
+    animation: fadeIn 0.5s;
+}
+
+@keyframes fadeIn {
+    from {opacity: 0;}
+    to {opacity: 1;}
+}
+
+.form-select {
+    background-color: rgba(255, 255, 255, 0.9);
+    border: none;
+    padding: 12px;
+}
+
+.alert {
+    font-size: 1.2em;
+    padding: 20px;
+}

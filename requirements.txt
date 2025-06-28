@@ -1,0 +1,23 @@
+# --- Web & Server ---
+Flask==2.2.5
+gunicorn==20.1.0
+
+# --- ML & Model Loading ---
+scikit-learn==1.0.2
+numpy==1.23.5
+pandas==1.3.5
+
+# --- Jupyter Notebook Support ---
+jupyter
+ipykernel
+
+# --- Optional Visualization (if used in notebooks) ---
+matplotlib==3.5.3
+seaborn==0.11.2
+
+# --- Optional if using model saving/loading ---
+joblib==1.1.1
+pickle-mixin==1.0.2
+
+# --- Render Deployment Support ---
+python-dotenv  # in case you want to use environment variables later
