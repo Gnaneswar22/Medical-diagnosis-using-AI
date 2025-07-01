@@ -4,7 +4,7 @@ numpy
 pandas
 scikit-learn
 joblib
-tensorflow
+tensorflow==2.10
 keras
 opencv-python
 Pillow
