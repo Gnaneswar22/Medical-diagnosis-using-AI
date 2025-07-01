@@ -1,2 +1,13 @@
-flask
+Flask
 gunicorn
+numpy
+pandas
+scikit-learn
+joblib
+tensorflow
+keras
+opencv-python
+Pillow
+matplotlib
+seaborn
+werkzeug
