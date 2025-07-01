@@ -1,6 +1,19 @@
+Flask==2.3.2
+gunicorn==21.2.0
 
-setuptools>=58.0.4
-Flask==2.1.2
-gunicorn==20.1.0
-numpy==1.21.6
-scikit-learn==1.0.2
+numpy==1.24.4
+pandas==1.5.3
+scikit-learn==1.2.2
+joblib==1.2.0
+
+tensorflow==2.12.0         # if you're using CNNs/image models
+keras==2.12.0               # optional (if not included via tensorflow)
+
+opencv-python==4.7.0.72     # for image preprocessing
+Pillow==9.5.0               # for image loading
+
+matplotlib==3.7.1           # for visualizations (optional)
+seaborn==0.12.2             # optional
+
+# for model saving/loading and handling forms
+werkzeug==2.3.6
